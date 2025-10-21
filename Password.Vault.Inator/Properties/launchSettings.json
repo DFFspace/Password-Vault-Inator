@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Password.Vault.Inator (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Password.Vault.Inator (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

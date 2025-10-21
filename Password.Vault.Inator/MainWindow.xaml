@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<winuiex:WindowEx
+    x:Class="Password.Vault.Inator.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Password.Vault.Inator"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:winuiex="using:WinUIEx"
+    mc:Ignorable="d">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop Kind="Base" />
+    </Window.SystemBackdrop>
+
+    <Grid>
+
+        <!--  Title Bar  -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <TitleBar
+                x:Name="ApplicationTitleBar"
+                Title="Password Vault-Inator"
+                Height="48">
+                <TitleBar.IconSource>
+                    <ImageIconSource AutomationProperties.AccessibilityView="Raw" />
+                </TitleBar.IconSource>
+            </TitleBar>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Spacing="4">
+            <!--  Add Password  -->
+            <controls:SettingsCard
+                Grid.Row="1"
+                Description="Here we can add a password to the Windows Credential Manager"
+                Header="Add Password">
+
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <TextBox x:Name="TextBoxResourceName" PlaceholderText="Resoure Name" />
+
+                    <TextBox x:Name="TextBoxUsername" PlaceholderText="Username" />
+
+                    <PasswordBox x:Name="TextBoxPassword" PlaceholderText="Password" />
+
+                    <Button
+                        x:Name="BtnAddCredsToVault"
+                        Click="BtnAddCredsToVault_Click"
+                        Style="{ThemeResource AccentButtonStyle}"
+                        ToolTipService.ToolTip="Add password to Windows Credential Manager">
+                        <FontIcon FontSize="16" Glyph="&#xE751;" />
+                    </Button>
+                </StackPanel>
+            </controls:SettingsCard>
+
+            <InfoBar
+                x:Name="AddCredsToVaultInfoBar"
+                x:FieldModifier="public"
+                IsClosable="True"
+                IsOpen="False">
+                <InfoBar.Content>
+                    <ProgressRing
+                        x:Name="AddCredsToVaultProgress"
+                        x:FieldModifier="public"
+                        IsActive="False" />
+                </InfoBar.Content>
+            </InfoBar>
+        </StackPanel>
+    </Grid>
+</winuiex:WindowEx>
