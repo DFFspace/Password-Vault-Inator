@@ -3,6 +3,8 @@
 # Password Vault Inator
 A simple WinUI 3 application to add passwords inside the Windows Credential Manager.
 
+![](ProgramImageCred.png)
+
 ### Dependencies
 - **[DevWinUI](https://github.com/ghost1372/DevWinUI)**
 - **[Windows Community Toolkit](https://github.com/CommunityToolkit/Windows)**
