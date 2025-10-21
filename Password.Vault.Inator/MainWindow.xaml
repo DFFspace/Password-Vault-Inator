@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dev="using:DevWinUI"
     xmlns:local="using:Password.Vault.Inator"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:winuiex="using:WinUIEx"
@@ -16,58 +17,53 @@
 
     <Grid>
 
-        <!--  Title Bar  -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid>
-            <TitleBar
-                x:Name="ApplicationTitleBar"
-                Title="Password Vault-Inator"
-                Height="48">
-                <TitleBar.IconSource>
-                    <ImageIconSource AutomationProperties.AccessibilityView="Raw" />
-                </TitleBar.IconSource>
-            </TitleBar>
-        </Grid>
 
-        <StackPanel Grid.Row="1" Spacing="4">
-            <!--  Add Password  -->
-            <controls:SettingsCard
-                Grid.Row="1"
-                Description="Here we can add a password to the Windows Credential Manager"
-                Header="Add Password">
+        <NavigationView
+            x:Name="NavigationViewControl"
+            Grid.Row="1"
+            HighContrastAdjustment="None"
+            IsBackButtonVisible="Collapsed"
+            IsPaneToggleButtonVisible="False"
+            IsSettingsVisible="False"
+            ItemInvoked="NavigationViewControl_ItemInvoked"
+            Style="{StaticResource NavigationViewStoreStyle}">
+            <NavigationView.MenuItems>
+                <NavigationViewItem
+                    Content="Home"
+                    Icon="Home"
+                    Tag="Password.Vault.Inator.Pages.HomePage" />
+            </NavigationView.MenuItems>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem
+                    Content="Feedback"
+                    Icon="{dev:FontIcon GlyphName=LockFeedback}"
+                    IsEnabled="False"
+                    SelectsOnInvoked="False"
+                    Tag="Contribute" />
+                <NavigationViewItem
+                    Content="Settings"
+                    Icon="Setting"
+                    IsEnabled="False"
+                    Tag="Password.Vault.Inator.Pages.SettingsPage" />
+            </NavigationView.FooterMenuItems>
+            <NavigationView.Content>
+                <Frame x:Name="ContentFrame" Navigated="ContentFrame_Navigated" />
+            </NavigationView.Content>
+        </NavigationView>
 
-                <StackPanel Orientation="Horizontal" Spacing="10">
-                    <TextBox x:Name="TextBoxResourceName" PlaceholderText="Resoure Name" />
-
-                    <TextBox x:Name="TextBoxUsername" PlaceholderText="Username" />
-
-                    <PasswordBox x:Name="TextBoxPassword" PlaceholderText="Password" />
-
-                    <Button
-                        x:Name="BtnAddCredsToVault"
-                        Click="BtnAddCredsToVault_Click"
-                        Style="{ThemeResource AccentButtonStyle}"
-                        ToolTipService.ToolTip="Add password to Windows Credential Manager">
-                        <FontIcon FontSize="16" Glyph="&#xE751;" />
-                    </Button>
-                </StackPanel>
-            </controls:SettingsCard>
-
-            <InfoBar
-                x:Name="AddCredsToVaultInfoBar"
-                x:FieldModifier="public"
-                IsClosable="True"
-                IsOpen="False">
-                <InfoBar.Content>
-                    <ProgressRing
-                        x:Name="AddCredsToVaultProgress"
-                        x:FieldModifier="public"
-                        IsActive="False" />
-                </InfoBar.Content>
-            </InfoBar>
-        </StackPanel>
+        <!--  Title Bar  -->
+        <TitleBar
+            x:Name="ApplicationTitleBar"
+            Title="Password Vault-Inator"
+            BackRequested="TitleBar_BackRequested"
+            IsBackButtonVisible="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}">
+            <TitleBar.IconSource>
+                <ImageIconSource ImageSource="/Assets/strongbox.ico" />
+            </TitleBar.IconSource>
+        </TitleBar>
     </Grid>
 </winuiex:WindowEx>
